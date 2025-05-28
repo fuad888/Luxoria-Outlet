@@ -1,0 +1,4 @@
+.row:has(.parler-language-tabs) {
+    display: inline-flex !important;
+    width: 100% !important;
+}

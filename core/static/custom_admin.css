@@ -1,0 +1,92 @@
+.no-shadow {
+    box-shadow: none !important;
+    margin-left: 0 !important;
+}
+
+.parler-language-tabs {
+    margin-bottom: 20px !important;
+    border: none !important;
+    width: 100% !important;
+}
+
+.parler-language-tabs span.empty {
+    border-radius: 6px !important;
+}
+
+.parler-language-tabs span {
+    border: 1px solid #ccc !important;
+}
+
+.row:has(.parler-language-tabs) {
+    display: inline-flex !important;
+}
+
+/* Button dizaynı */
+.toggle-button {
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    margin-left: auto;
+    display: flex;
+}
+
+.toggle-button:hover {
+    background-color: #0056b3;
+}
+
+/* Sahələr görünəndə */
+.form-group.unvisible {
+    display: none !important;
+}
+
+.module.sortable h2 {
+    display: none;
+}
+
+.dynamic-additional_info b,
+.dynamic-additional_youtube b
+ {
+    display: none;
+}
+
+.dynamic-additional_info,
+.dynamic-additional_youtube {
+    padding: 10px;
+}
+
+.dynamic-additional_info h3,
+.dynamic-additional_youtube h3{
+    padding: 10px 10px 10px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dynamic-additional_info .delete ,
+.dynamic-additional_youtube .delete {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.dynamic-additional_info input[type=checkbox],
+.dynamic-additional_youtube input[type=checkbox]{
+    width: 20px;
+    height: 20px;
+}
+
+.vCheckboxLabel.inline {
+    font-size: 24px;
+}
+
+.dynamic-additional_info .sort ,
+.dynamic-additional_youtube .sort {
+    display: flex;
+}

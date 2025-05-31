@@ -14,33 +14,35 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from django.conf import settings
+from django.conf.urls import include
+from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
-from Shop.urls import urlpatterns as shop_urls
+
+from accounts.urls import urlpatterns as accounts_urls
 from Blog.urls import urlpatterns as blog_urls
 from Contact.urls import urlpatterns as contact_urls
 from Home.urls import urlpatterns as home_urls
-from django.conf.urls import include
-from django.conf.urls.i18n import i18n_patterns
-from accounts.urls import urlpatterns as accounts_urls
-
+from Shop.urls import urlpatterns as shop_urls
 
 urlpatterns = [
-    path('rosetta/', include('rosetta.urls')),
+    path("rosetta/", include("rosetta.urls")),
 ]
 
 urlpatterns += i18n_patterns(
-    path('admin/', admin.site.urls),
-    path('i18n/', include('django.conf.urls.i18n')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('accounts/', include((accounts_urls, 'accounts'), namespace='accounts')),
+    path("admin/", admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("accounts/", include((accounts_urls, "accounts"), namespace="accounts")),
     *shop_urls,
     *blog_urls,
     *contact_urls,
     *home_urls,
 )
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

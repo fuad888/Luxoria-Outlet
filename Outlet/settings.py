@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
-from django.utils.translation import gettext_lazy as _
 
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,75 +23,82 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-duotbohqx-hau&f(x4!9+0p6mvfh9fi&%pa$2+vg*6&7+9z3fz'
+SECRET_KEY = os.getenv('SECRET_KEY', 'change_me_to_a_secure_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", True) != "False"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
-    'ckeditor',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'accounts',
-    'core',
-    'Shop',
-    'Blog',
-    'Contact',
-    'Home',
-    'rosetta',
-    'parler',
-
+    "jazzmin",
+    "ckeditor",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "accounts",
+    "core",
+    "Shop",
+    "Blog",
+    "Contact",
+    "Home",
+    "rosetta",
+    "parler",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'Outlet.urls'
+ROOT_URLCONF = "Outlet.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'core/templates', BASE_DIR / 'Shop/templates',BASE_DIR / 'Blog/templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'core.context_processors.setting_context'
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            BASE_DIR / "core/templates",
+            BASE_DIR / "Shop/templates",
+            BASE_DIR / "Blog/templates",
+        ],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "core.context_processors.setting_context",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'Outlet.wsgi.application'
+WSGI_APPLICATION = "Outlet.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB", "dev_db"),
+        "USER": os.getenv("POSTGRES_USER", "dev_user"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "dev_password"),
+        "HOST": os.getenv("POSTGRES_HOST", "dev_host"),
+        "PORT": os.getenv("POSTGRES_PORT", "dev_port"),
     }
 }
 
@@ -100,16 +108,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -117,9 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = "Asia/Baku"
 
 USE_I18N = True
 
@@ -129,40 +135,39 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-import os
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # mediani heleki kommente ala bilersiniz
-CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-LANGUAGE_CODE = 'az'
+LANGUAGE_CODE = "az"
 
 LANGUAGES = (
-    ('az', _('Azerbaijani')),
-    ('en', _('English')),
-    ('ru', _('Russian')),
+    ("az", _("Azerbaijani")),
+    ("en", _("English")),
+    ("ru", _("Russian")),
 )
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
-)
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 PARLER_LANGUAGES = {
     None: (
-        {'code': 'en', 'fallbacks': ['az', 'en']},
-        {'code': 'ru', 'fallbacks': ['az', 'en']},
-        {'code': 'az', 'fallbacks': ['en', 'az']},
+        {"code": "en", "fallbacks": ["az", "en"]},
+        {"code": "ru", "fallbacks": ["az", "en"]},
+        {"code": "az", "fallbacks": ["en", "az"]},
     ),
-    'default': {
-        'fallbacks': ['az'],          # defaults to PARLER_DEFAULT_LANGUAGE_CODE
-        'hide_untranslated': False   # the default; let .active_translations() return fallbacks too.
-    }
+    "default": {
+        "fallbacks": ["az"],  # defaults to PARLER_DEFAULT_LANGUAGE_CODE
+        "hide_untranslated": False,  # the default; let .active_translations() return fallbacks too.
+    },
 }
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 JAZZMIN_SETTINGS = {
     # "site_logo": "logo.svg",
@@ -172,9 +177,7 @@ JAZZMIN_SETTINGS = {
     "login_logo": "Outlet/static/logo.png",
     "custom_css": "custom_admin.css",
     "custom_js": "custom_admin.js",
-    "admin_css": "admin.css"
+    "admin_css": "admin.css",
 }
 
-AUTH_USER_MODEL = 'accounts.MyUser'
-
-
+AUTH_USER_MODEL = "accounts.MyUser"

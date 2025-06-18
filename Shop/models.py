@@ -19,36 +19,34 @@ class Category(BaseModel, TranslatableModel):
         name=models.CharField(max_length=100, null=True, blank=True),
     )
     slug = models.SlugField(unique=True, null=True, blank=True)
-    parents = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     class Meta:
         verbose_name = 'Kateqoriya'
         verbose_name_plural = 'Kateqoriyalar'
-
-class ParentCategory(BaseModel, TranslatableModel):
-    translations = TranslatedFields(
-        name=models.CharField(max_length=100, null=True, blank=True),
-    )
-    Category = models.ManyToManyField(Category, blank=True, related_name='parent_categories')
-    
-    class Meta:
-        verbose_name = 'Əsas Kateqoriya'
-        verbose_name_plural = 'Əsas Kateqoriyalar'
 
 class Product(BaseModel, TranslatableModel):
     translations = TranslatedFields(
         name = models.CharField(max_length=100),
         content = models.TextField()
     )
-    slug = models.SlugField(unique=True, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField()
     image = models.ImageField(upload_to='products/')
-    categories = models.ManyToManyField(Category, blank=True)
+    image1 = models.ImageField(upload_to='products/', blank=True, null=True)
+    image2 = models.ImageField(upload_to='products/', blank=True, null=True)
+    image3 = models.ImageField(upload_to='products/', blank=True, null=True)
+    image4 = models.ImageField(upload_to='products/', blank=True, null=True)
+    categories = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', null=True, blank=True)
+    slug = models.SlugField(unique=True, null=True, blank=True)
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.safe_translation_getter('name', any_language=True)
     
     class Meta:
         verbose_name = 'Məhsul'
         verbose_name_plural = 'Məhsullar'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)

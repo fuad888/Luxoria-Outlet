@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Homepage, Banner
 from Blog.models import Blogs
+from Shop.models import Product, Category
 
 def home(request, *args, **kwargs):
     homepage = Homepage.objects.first()
@@ -13,6 +14,8 @@ def home(request, *args, **kwargs):
         'banner_1': Banner.objects.first().image_1.url if Banner.objects.first() and Banner.objects.first().image_1 else '',
         'banner_2': Banner.objects.first().image_2.url if Banner.objects.first() and Banner.objects.first().image_2 else '',
         'blogs': Blogs.objects.all().order_by('-created_at')[:3],
+        'categories': Category.objects.all(),
+        'products': Product.objects.all().order_by('-created_at')[:8],
     }
 
     return render(request, 'index.html', context)

@@ -16,5 +16,6 @@ def product_detail(request, slug):
     context = {
         'product': product,
         'related_products': Product.objects.filter(categories__in=product.categories.all()).exclude(id=product.id)[:4],
+
     }
     return render(request, 'shop-details.html', context=context)

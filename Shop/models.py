@@ -65,14 +65,17 @@ class Product(BaseModel, TranslatableModel):
     slug = models.SlugField(unique=True, null=True, blank=True)
 
     def __str__(self):
-        return self.safe_translation_getter('name', any_language=True)
-    
+        return str(self.id)
     
     class Meta:
         verbose_name = 'Məhsul'
         verbose_name_plural = 'Məhsullar'
 
     def save(self, *args, **kwargs):
+        if not self.id:
+            super().save(*args, **kwargs)
+
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(f"{self.id}-{self.safe_translation_getter('name', any_language=True)}")
+
         super().save(*args, **kwargs)

@@ -123,13 +123,13 @@
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>{% trans "Availability" %}</b> <span>{{ product.stock }}</span></li>
-                            <li><b>{% trans "Shipping" %}</b> <span>{{ prodcut.shipping_info }} <samp>{% trans "Free pickup today" %}</samp></span></li>
+                            <li><b>{% trans "Shipping" %}</b>{{ product.shipping_info|safe }} </li>
                             <li><b>{% trans "Weight" %}</b> <span>{{ product.weight }}</span></li>
                             <li><b>{% trans "Share on" %}</b>
                                 <div class="share">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="{{ setting_obj.Facebook }}" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="https://{{ setting_obj.Facebook }}" target="_blank" rel="noopener noreferrer"><i class="fa fa-instagram"></i></a>
                                     <a href="#"><i class="fa fa-pinterest"></i></a>
                                 </div>
                             </li>

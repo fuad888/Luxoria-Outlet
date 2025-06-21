@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-27 10:54+0000\n"
+"POT-Creation-Date: 2025-06-21 09:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Blog/templates/blog.html:13 Blog/templates/blog.html:89
+#: Blog/templates/blog-details.html:13 Blog/templates/blog.html:13
+#: Blog/templates/blog.html:89 Home/templates/index.html:13
+#: Shop/Templates/shop-grid.html:13
 msgid "Category"
 msgstr ""
 
-#: Blog/templates/blog.html:39 Contact/Templates/contact.html:39
+#: Blog/templates/blog-details.html:39 Blog/templates/blog.html:39
+#: Contact/Templates/contact.html:39 Home/templates/index.html:35
+#: Shop/Templates/shop-details.html:39 Shop/Templates/shop-grid.html:39
 msgid "SEARCH"
 msgstr ""
 
-#: Blog/templates/blog.html:48 Contact/Templates/contact.html:48
+#: Blog/templates/blog-details.html:48 Blog/templates/blog.html:48
+#: Contact/Templates/contact.html:48 Home/templates/index.html:44
+#: Shop/Templates/shop-details.html:48 Shop/Templates/shop-grid.html:48
 msgid "support 24/7 time"
 msgstr ""
 
@@ -66,6 +72,14 @@ msgstr ""
 msgid "Leave Message"
 msgstr ""
 
+#: Home/templates/index.html:104
+msgid "Featured Product"
+msgstr ""
+
+#: Home/templates/index.html:472
+msgid "From The Blog"
+msgstr ""
+
 #: Outlet/settings.py:146
 msgid "Azerbaijani"
 msgstr ""
@@ -76,6 +90,26 @@ msgstr ""
 
 #: Outlet/settings.py:148
 msgid "Russian"
+msgstr ""
+
+#: Shop/Templates/shop-details.html:125
+msgid "Availability"
+msgstr ""
+
+#: Shop/Templates/shop-details.html:126
+msgid "Shipping"
+msgstr ""
+
+#: Shop/Templates/shop-details.html:126
+msgid "Free pickup today"
+msgstr ""
+
+#: Shop/Templates/shop-details.html:127
+msgid "Weight"
+msgstr ""
+
+#: Shop/Templates/shop-details.html:128
+msgid "Share on"
 msgstr ""
 
 #: accounts/templates/register.html:126

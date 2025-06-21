@@ -5,7 +5,7 @@ from core.models import Setting
 class Setting(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('logo', 'title', 'email', 'phone', 'address','postal_code', 'language','language_flag')
+            'fields': ('logo', 'title', 'email', 'phone', 'address','postal_code')
         }),
         ('Social Media Links', {
             'fields': ('facebook', 'instagram', 'twitter', 'pinterest')

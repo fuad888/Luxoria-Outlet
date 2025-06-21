@@ -11,17 +11,15 @@ class BaseModel(models.Model):
 
 class Setting(BaseModel):
     logo = models.ImageField(upload_to='logo/')
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
     postal_code = models.CharField(max_length=10)
     address = models.TextField()
-    language = models.CharField(max_length=10)
-    language_flag = models.ImageField(upload_to='language_flags/')
     facebook = models.CharField(max_length=100)
     instagram = models.CharField(max_length=100)
-    twitter = models.CharField(max_length=100)
-    pinterest = models.CharField(max_length=100)
+    twitter = models.CharField(max_length=100, blank=True, null=True)
+    pinterest = models.CharField(max_length=100, blank=True, null=True)
     newsletter = models.CharField(max_length=100)
     newsletter_description = models.TextField()
 

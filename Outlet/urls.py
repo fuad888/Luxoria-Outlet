@@ -29,6 +29,7 @@ from accounts.urls import urlpatterns as accounts_urls
 
 urlpatterns = [
     path('rosetta/', include('rosetta.urls')),
+    path('api/v1/', include('api.urls')),
 ]
 
 urlpatterns += i18n_patterns(
@@ -36,6 +37,7 @@ urlpatterns += i18n_patterns(
     path('i18n/', include('django.conf.urls.i18n')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include((accounts_urls, 'accounts'), namespace='accounts')),
+    
     *shop_urls,
     *blog_urls,
     *contact_urls,

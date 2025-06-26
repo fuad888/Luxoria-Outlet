@@ -1,6 +1,7 @@
 from django.db import models
 from parler.models import TranslatableModel, TranslatedFields
 from core.models import BaseModel
+from Shop.models import Category
 
 
 class Homepage(BaseModel, TranslatableModel):
@@ -33,3 +34,11 @@ class Banner(BaseModel, TranslatableModel):
     class Meta:
         verbose_name = 'Banner'
         verbose_name_plural = 'Bannerlər'
+
+class Carusel(BaseModel):
+    image = models.ImageField(upload_to='images/')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='carusels')
+    
+    class Meta:
+        verbose_name = 'Karusel'
+        verbose_name_plural = 'Karusellər'

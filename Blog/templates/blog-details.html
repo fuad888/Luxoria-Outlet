@@ -88,11 +88,11 @@
                         </div>
                         <div class="blog__sidebar__item">
                             <h4>Kateqoriya</h4>
-                            {% for i in blog_categories %}
                             <ul>
-                                <li><a href="#">{{ i.name }}</a></li>
+                                {% for blogcategory in blog_categories %}
+                                <li><a href="#">{{ blogcategory.name }}</a></li>
+                                {% endfor %}
                             </ul>
-                            {% endfor %}
                         </div>
                         <div class="blog__sidebar__item">
                             <h4>Recent News</h4>

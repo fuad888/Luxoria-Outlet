@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  Category, Product, shoppage, Size
+from .models import  Category, Product, shoppage, Size,Color
 from parler.admin import TranslatableAdmin
 
 
@@ -14,6 +14,11 @@ class CategoryAdmin(TranslatableAdmin):
     search_fields = ('name',)
     readonly_fields = ('slug',)
 admin.site.register(Category, CategoryAdmin)
+
+@admin.register(Color)
+class ColorAdmin(TranslatableAdmin):
+    list_display = ('name',)
+    readonly_fields = ('slug',)
 
 class ProductAdmin(TranslatableAdmin):
     list_display = ('name', 'price', 'stock',)

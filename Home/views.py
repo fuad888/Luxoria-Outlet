@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Homepage, Banner
+from .models import Homepage, Banner, Carusel
 from Blog.models import Blogs
 from Shop.models import Product, Category
 
@@ -16,6 +16,7 @@ def home(request, *args, **kwargs):
         'blogs': Blogs.objects.all().order_by('-created_at')[:3],
         'categories': Category.objects.all(),
         'products': Product.objects.all().order_by('-created_at')[:8],
+        'carusels': Carusel.objects.all(),
     }
 
     return render(request, 'index.html', context)
@@ -31,9 +32,16 @@ def blog_details(request, slug):
 
 def Search(request):
     query = request.GET.get('query')
-    blogs = Blogs.objects.filter(title__icontains=query)
+    if query and query.strip():
+        blogs = Blogs.objects.filter(translations__title__icontains=query)
+        shop_products = Product.objects.filter(translations__name__icontains=query)
+    else:
+        blogs = Blogs.objects.all()
+        shop_products = Product.objects.all().order_by('-created_at')[:5]
     context = {
         'blogs': blogs,
         'query': query,
+        'shop_products': shop_products,
     }
     return render(request, 'search.html', context=context)
+

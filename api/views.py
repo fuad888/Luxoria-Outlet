@@ -1,9 +1,10 @@
 #api view
 from api.serializer import ProductSerializer
-from Shop.models import Product
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+
+from Shop.models import Product
 
 class ProductListView(APIView):
     """
@@ -15,16 +16,8 @@ class ProductListView(APIView):
         """
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
-    def post(self, request):
-        """
-        Handle POST requests to create a new product.
-        """
-        serializer = ProductSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+    
     
 

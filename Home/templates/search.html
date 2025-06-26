@@ -12,13 +12,13 @@
                 </div>
                 {% if results %}
                     <div class="row">
-                        {% for item in results %}
+                        {% for product in products %}
                             <div class="col-lg-3 col-md-4 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{{ item.image.url }}"></div>
+                                    <div class="product__item__pic set-bg" data-setbg="{{ product.image.url }}"></div>
                                     <div class="product__item__text">
-                                        <h6><a href="{% url 'product_detail' item.slug %}">{{ item.title }}</a></h6>
-                                        <h5>${{ item.price }}</h5>
+                                        <h6><a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a></h6>
+                                        <h5>${{ product.price }}</h5>
                                     </div>
                                 </div>
                             </div>

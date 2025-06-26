@@ -5,5 +5,7 @@ from api.views import ProductListView
 
 urlpatterns = [
     path('products/', ProductListView.as_view(), name='product-list'),
+
+
     # Add more API endpoints as needed
 ]

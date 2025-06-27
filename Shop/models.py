@@ -13,7 +13,7 @@ class shoppage(BaseModel, TranslatableModel):
         verbose_name = 'Mağaza Səhifəsi'
         verbose_name_plural = 'Mağaza Səhifələri'
 
-class Color(models.Model):
+class Color(BaseModel):
     name = models.CharField(max_length=50, null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True)
     color_class = models.CharField(max_length=100, null=True, blank=True, help_text="sidebar__item__color sidebar__item__color--'add color'")
@@ -49,21 +49,21 @@ class Category(BaseModel, TranslatableModel):
         verbose_name = 'Kateqoriya'
         verbose_name_plural = 'Kateqoriyalar'
 
-class Size(BaseModel,TranslatableModel):
-    translations = TranslatedFields(
-        name=models.CharField(max_length=50, null=True, blank=True)
-    )
+class Size(BaseModel):
+    name = models.CharField(max_length=50, null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            name = self.safe_translation_getter('name', any_language=True)
-            if name:
-                self.slug = slugify(name)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.safe_translation_getter('name', any_language=True) or "—"
+        return self.name
+
+    class Meta:
+        verbose_name = 'Rəng'
+        verbose_name_plural = 'Rənglər'
 
 class Product(BaseModel, TranslatableModel):
     translations = TranslatedFields(
@@ -82,7 +82,7 @@ class Product(BaseModel, TranslatableModel):
     image3 = models.ImageField(upload_to='products/', blank=True, null=True)
     image4 = models.ImageField(upload_to='products/', blank=True, null=True)
     categories = models.ManyToManyField(Category, related_name='products', blank=True)
-    colors = models.ManyToManyField(Color, related_name='products', blank=True)
+    color = models.ForeignKey(Color, on_delete=models.CASCADE, related_name='products', null=True, blank=True)
     size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='products', null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True)
 

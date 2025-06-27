@@ -108,8 +108,8 @@
                             <h4>Colors</h4>
                             {% for color in colors %}
                             <div class="sidebar_itemcolor {{ color.color_class }}">
-                                <label for="{{ color.name|lower }}">
-                                    {{ color.name }}
+                                <label  for="{{ color.name|lower }}">
+                                    <a href=" {% url 'shop' %}?color={{ color.name }}">{{ color.name }}</a>   
                                     <input type="radio" name="color" value="{{ color.id }}" id="{{ color.name|lower }}">
                                 </label>
                             </div>

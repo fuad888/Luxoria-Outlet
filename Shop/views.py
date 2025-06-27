@@ -3,14 +3,22 @@ from Shop.models import shoppage as site_banner
 from Shop.models import Category, Product, Size, Color
 
 def Shop(request):
+    product = Product.objects.all()
     color= Color.objects.all()
+
+
+    if "color" in request.GET.keys():
+        product = Product.objects.filter(
+            color__name=request.GET["color"])
+
+
     context = {
         'shop_title': site_banner.objects.first().shop_title,
         'shop_banner': site_banner.objects.first().shop_banner,
-        'products': Product.objects.all(),
+        'products': product,
         'categories': Category.objects.all(),
         'sizes': Size.objects.all(),
-        'colors': Color.objects.all(),
+        'colors': color,
 
     }
     return render(request, 'shop-grid.html', context=context)

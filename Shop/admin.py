@@ -16,12 +16,12 @@ class CategoryAdmin(TranslatableAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 @admin.register(Color)
-class ColorAdmin(TranslatableAdmin):
-    list_display = ('name',)
+class ColorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'color_class',)
     readonly_fields = ('slug',)
 
 class ProductAdmin(TranslatableAdmin):
-    list_display = ('name', 'price', 'stock',)
+    list_display = ('name', 'price', 'stock', 'created_at',)
     search_fields = ('name','price',)
     list_filter = ('categories',)
     list_translations = ('name', 'content', 'shipping_info', 'description', 'info')

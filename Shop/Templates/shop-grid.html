@@ -107,10 +107,10 @@
                         <div class="sidebar__item sidebar__item__color--option">
                             <h4>Colors</h4>
                             {% for color in colors %}
-                            <div class="sidebar__item__color sidebar__item__color--white">
-                                <label for="white">
-                                    White
-                                    <input type="radio" id="white">
+                            <div class="sidebar_itemcolor {{ color.color_class }}">
+                                <label for="{{ color.name|lower }}">
+                                    {{ color.name }}
+                                    <input type="radio" name="color" value="{{ color.id }}" id="{{ color.name|lower }}">
                                 </label>
                             </div>
                             {% endfor %}

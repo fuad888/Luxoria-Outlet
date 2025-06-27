@@ -1,11 +1,9 @@
 #api urls
 
 from django.urls import path
-from api.views import ProductListView
+from api.views import ProductListView, CategoryListView
 
 urlpatterns = [
     path('products/', ProductListView.as_view(), name='product-list'),
-
-
-    # Add more API endpoints as needed
+    path('categories/', CategoryListView.as_view(), name='category-list'),
 ]

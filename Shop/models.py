@@ -16,6 +16,7 @@ class shoppage(BaseModel, TranslatableModel):
 class Color(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True)
+    color_class = models.CharField(max_length=100, null=True, blank=True, help_text="sidebar__item__color sidebar__item__color--'add color'")
 
     def save(self, *args, **kwargs):
         if not self.slug:

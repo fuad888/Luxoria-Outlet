@@ -30,6 +30,7 @@ from accounts.urls import urlpatterns as accounts_urls
 urlpatterns = [
     path('rosetta/', include('rosetta.urls')),
     path('api/v1/', include('api.urls')),
+    
 ]
 
 urlpatterns += i18n_patterns(

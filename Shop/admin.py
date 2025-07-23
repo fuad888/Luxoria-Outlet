@@ -16,7 +16,7 @@ class CategoryAdmin(TranslatableAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 @admin.register(Color)
-class ColorAdmin(admin.ModelAdmin):
+class ColorAdmin(TranslatableAdmin):
     list_display = ('name', 'color_class',)
     readonly_fields = ('slug',)
 

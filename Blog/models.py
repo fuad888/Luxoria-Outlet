@@ -40,19 +40,26 @@ class Blogs(BaseModel, TranslatableModel):
         verbose_name = 'Bloq'
         verbose_name_plural = 'Bloqlar'
 
-class BlogCategory(BaseModel,TranslatableModel):
+from django.utils.text import slugify
+from parler.models import TranslatableModel, TranslatedFields
+
+class BlogCategory(BaseModel, TranslatableModel):
     translations = TranslatedFields(
-        name=models.CharField(max_length=255,null=True, blank=True),
-        
+        name=models.CharField(max_length=255, null=True, blank=True),
     )
     slug = models.SlugField(max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            name = self.safe_translation_getter('name', any_language=True)
+            if name:
+                self.slug = slugify(name)
         super().save(*args, **kwargs)
 
-    class meta:
+    def __str__(self):
+        return self.safe_translation_getter('name', any_language=True) or 'Unnamed Category'
+
+    class Meta:
         verbose_name = 'Bloq Kateqoriyası'
         verbose_name_plural = 'Bloq Kateqoriyaları'
 

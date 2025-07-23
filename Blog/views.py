@@ -1,19 +1,35 @@
 from django.shortcuts import render
 from .models import Blogs,BlogCategory, SearchByInline , Blogpage
 from accounts.models import MyUser
+from django.core.paginator import Paginator
 
 # Create your views here.
 
+from django.core.paginator import Paginator
+from django.shortcuts import render
+
 def Blog_page(request):
-    Page = Blogpage.objects.first()
+    page = Blogpage.objects.first()
+    category = BlogCategory.objects.all()
+    blog_list = Blogs.objects.all().order_by('-created_at')
+
+    if "category" in request.GET:
+        blog_list = Blogs.objects.filter(categories__slug=request.GET["category"]).order_by('-created_at')
+
+    paginator = Paginator(blog_list, 3)  # Hər səhifədə 3 blog
+    page_number = request.GET.get('page')
+    blogs = paginator.get_page(page_number)
+
     context = {
-        'site_banner': Page.image,
-        'blog_title': Page.title,
-        'blog_categories': BlogCategory.objects.all(),
+        'site_banner': page.image,
+        'blog_title': page.title,
+        'blog_categories': category,
         'search_by': SearchByInline.objects.all(),
-        'blogs': Blogs.objects.all().order_by('-created_at')[:3],
+        'blogs': blogs,  # ✅ Doğru səhifələnmiş obyekt
     }
+
     return render(request, 'blog.html', context)
+
 
 
 def blog_details(request, slug):

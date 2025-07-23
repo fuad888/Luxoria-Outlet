@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from Shop.models import shoppage as site_banner
 from Shop.models import Category, Product, Size, Color
+from django.core.paginator import Paginator
 
 def Shop(request):
     product = Product.objects.all()
@@ -8,9 +9,17 @@ def Shop(request):
 
 
     if "color" in request.GET.keys():
-        product = Product.objects.filter(
-            color__name=request.GET["color"])
+        product = Product.objects.filter(color__slug=request.GET["color"])
+    
+    if "category" in request.GET.keys():
+        product = Product.objects.filter(categories__slug=request.GET["category"])
 
+    if "size" in request.GET.keys():
+        product = Product.objects.filter(size__name=request.GET["size"])
+
+    paginator = Paginator(product, 2)   # Hər səhifədə 12 məhsul
+    page_number = request.GET.get('page')
+    product = paginator.get_page(page_number)
 
     context = {
         'shop_title': site_banner.objects.first().shop_title,
@@ -22,6 +31,7 @@ def Shop(request):
 
     }
     return render(request, 'shop-grid.html', context=context)
+
 
 def product_detail(request, slug):
     product = Product.objects.get(slug=slug)

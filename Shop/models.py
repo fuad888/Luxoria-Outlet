@@ -13,18 +13,20 @@ class shoppage(BaseModel, TranslatableModel):
         verbose_name = 'Mağaza Səhifəsi'
         verbose_name_plural = 'Mağaza Səhifələri'
 
-class Color(BaseModel):
+class Color(BaseModel, TranslatableModel):
+    translations = TranslatedFields(
     name = models.CharField(max_length=50, null=True, blank=True)
+    )
     slug = models.SlugField(unique=True, null=True, blank=True)
     color_class = models.CharField(max_length=100, null=True, blank=True, help_text="sidebar__item__color sidebar__item__color--'add color'")
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.safe_translation_getter('name', any_language=True) or "—")
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.safe_translation_getter('name', any_language=True) or "—"
 
     class Meta:
         verbose_name = 'Rəng'
